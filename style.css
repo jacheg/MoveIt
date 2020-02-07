@@ -3,6 +3,7 @@
 body {
   font-family: helvetica, arial, sans-serif;
   margin: 2em;
+  background-color:#ced6e0;
 }
 
 h1 {
@@ -10,6 +11,9 @@ h1 {
   color: #373fff;
 }
 
+#appTitle{
+  font-size:50px ;
+}
 
 .infoBox{
   border-style: ridge;
@@ -17,6 +21,7 @@ h1 {
   margin-bottom: 50px;
   margin-right: 50px;
   margin-left: 20px;
+  border-radius: 5px;
 }
 
 .wholeContainer{
@@ -83,20 +88,44 @@ h1 {
   background-color: #5352ed;
 }
 
+#glBtn{
+   background-color: #fd79a8;
+}
 
   
 /* Post CSS */
-  .postInfo {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-  }
+.posts {
+  display:flex;
+  flex-direction: column-reverse;
+}
+.postInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
 .postTitle {
   margin-right: 20px;
 } 
-
-.title{
-  
-font-family: 'Lora', serif;
-  
+.post {
+  border-bottom: 1px solid black;
 }
+
+.title{  
+  font-family: 'Lora', serif;
+  color:black;
+}
+
+ background-color:#636e72;
+
+.add-post-form {
+  display:flex;
+  flex-direction: column;
+}
+
+#user-input-content {
+  min-height: 100px;
+  min-width: 50px;
+} 
+
+
+

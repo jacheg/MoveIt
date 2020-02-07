@@ -20,11 +20,13 @@ function renderPost(doc){
   let date = document.createElement("span");
   let topic = document.createElement("span");
   
-  li.setAttribute("data-id", doc.id);
-  title.textContent = doc.data().title;
-  content.textContent = doc.data().content;
-  date.textContent = doc.data().date;
-  topic.textContent = doc.data().topic;
+  // li.setAttribute("data-id", doc.id);
+  // title.textContent = doc.data().title;
+  // content.textContent = doc.data().content;
+  // date.textContent = doc.data().date;
+  // topic.textContent = doc.data().topic;
+  
+      $("#posts").append("<div id='posts'> <div class='post'> <div class='postInfo'> <h4 class='postTitle'>" + doc.data().title + "</h4> <p class='postDate'>" + doc.data().date + "</p> </div> <p class='postContent'>" + doc.data().content + "</p> <div class='tags'> <p>" + doc.data().topic + "</p> </div> </div> </div>");
   
   li.appendChild(title);
   li.appendChild(content);
@@ -49,9 +51,19 @@ form.addEventListener('submit', (e) => {
   db.collection("posts").add({
     title: form.title.value,
     content: form.content.value,
-    date: Date.now(),
+    date: new Date(Date.now()).toLocaleDateString(),
     topic: form.topic.value,
   });
+  form.title.value = "";
+  form.content.value = "";
+  form.topic.value = "";
+});
+
+db.collection("posts").onSnapshot(snapshot => {
+  let changes = snapshot.docChanges();
+  changes.forEach(change => {
+    renderPost(change.doc);
+  })
 });
 
 //---------------------------------------------------
@@ -60,7 +72,7 @@ $(document).ready(function() {
     var post = {
       title: $("#user-input-title").val(),
       content: $("#user-input-content").val(),
-      date: $("#user-input-date").val(),
+      date: new Date(Date.now()),
       upvotes: 0,
       downvotes: 0,
       topic: $("#user-input-topic").val()
@@ -68,7 +80,7 @@ $(document).ready(function() {
     
     console.log(post);
     
-    $("#posts").append("<div id='posts'> <div class='post'> <div class='postInfo'> <h4 class='postTitle'>" + post.title + "</h4> <p class='postDate'>" + post.date + "</p> </div> <p class='postContent'>" + post.content + "</p> <div class='tags'> <p></p> </div> </div> </div>")
+    $("#posts").append("<div id='posts'> <div class='post'> <div class='postInfo'> <h4 class='postTitle'>" + post.title + "</h4> <p class='postDate'>" + post.date + "</p> </div> <p class='postContent'>" + post.content + "</p> <div class='tags'> <p>" + post.topic + "</p> </div> </div> </div>");
   });
 });
 
@@ -110,6 +122,8 @@ $("#immiBtn").click(function() {
 })
 $("#glBtn").click(function() {
   displayAbout(gunLaws);
+  
+
 });
 
 function displayAbout(obj) {
@@ -117,3 +131,4 @@ function displayAbout(obj) {
   $(".infoBox").html(obj.about);
   $(".video").html(obj.video);
 }
+ 
